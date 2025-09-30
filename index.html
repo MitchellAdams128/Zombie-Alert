@@ -55,21 +55,25 @@
       text-shadow: 0 0 14px var(--glow), 0 0 30px rgba(255,0,0,.35);
     }
 
+    /* Biohazard: pulsing + rotating */
     .biohazard {
-      font-size: clamp(200px, 50vw, 550px); /* 10% larger */
+      font-size: clamp(200px, 50vw, 550px);
       line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       margin: 0 auto;
       filter: drop-shadow(0 0 22px rgba(255,0,0,.9)) drop-shadow(0 0 60px rgba(255,0,0,.4));
       user-select: none;
-      animation: pulse 2.4s ease-in-out infinite;
+      animation: pulse 2.4s ease-in-out infinite, spin 60s linear infinite;
+      will-change: transform, filter;
     }
     @keyframes pulse {
-      0%   { transform: scale(1);   filter: drop-shadow(0 0 16px rgba(255,0,0,.8)) drop-shadow(0 0 40px rgba(255,0,0,.35)); }
-      50%  { transform: scale(1.06); filter: drop-shadow(0 0 28px rgba(255,0,0,1)) drop-shadow(0 0 70px rgba(255,0,0,.55)); }
-      100% { transform: scale(1);   filter: drop-shadow(0 0 16px rgba(255,0,0,.8)) drop-shadow(0 0 40px rgba(255,0,0,.35)); }
+      0%   { transform: scale(1) rotate(0deg); }
+      50%  { transform: scale(1.06) rotate(180deg); }
+      100% { transform: scale(1) rotate(360deg); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
     @media (prefers-reduced-motion: reduce) {
       .biohazard { animation: none; }
@@ -97,7 +101,7 @@
       display: inline-block; white-space: nowrap; padding-left: 100%;
       font-weight: 900; letter-spacing: .12em;
       font-size: clamp(24px,7.6vw,36px);
-      animation: ticker 28s linear infinite;
+      animation: ticker 45s linear infinite; /* slowed from 28s → 45s */
     }
     @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-100%); } }
     .badge { display: inline-block; margin-right: 1.5rem; padding: .3rem 1rem; border-radius: .6rem; background: #b70000; color: #fff; font-size: 1.7em; }
@@ -128,7 +132,6 @@
 </head>
 <body class="alarm">
   <div class="wrap" role="main">
-    <!-- Header stacked above the biohazard -->
     <div>
       <div class="status">Status: Elevated</div>
       <h1>Zombie Outbreak Imminent</h1>
