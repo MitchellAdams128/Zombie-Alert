@@ -154,26 +154,32 @@
     }
 
     /* Ticker (bigger, slower for drama) */
-    .ticker{
-      position:fixed; left:0; right:0; bottom:0; z-index:3;
-      background: linear-gradient(180deg, var(--ticker-bg), #000);
-      border-top:1px solid var(--ticker-brd);
-      padding: clamp(12px, 4.4vw, 20px) 0;
-      overflow:hidden;
-      box-shadow: 0 -10px 30px rgba(255,0,0,.12);
-    }
-    .ticker-content{
-      display:inline-block; white-space:nowrap; padding-left:100%;
-      font-weight:900; letter-spacing:.14em;
-      font-size: clamp(24px,7.6vw,36px);
-      animation: ticker 46s linear infinite;
-      text-shadow: 0 0 10px rgba(255,0,0,.55);
-    }
-    @keyframes ticker{ from{ transform: translateX(0); } to{ transform: translateX(-100%); } }
-    .badge{
-      display:inline-block; margin-right:1.5rem; padding:.35rem 1rem; border-radius:.6rem;
-      background:#b70000; color:#fff; font-size:1.7em; box-shadow: 0 0 14px rgba(255,0,0,.35);
-    }
+.ticker {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 3;
+  background: linear-gradient(180deg, var(--ticker-bg), #000);
+  border-top: 1px solid var(--ticker-brd);
+  padding: clamp(9px, 3.3vw, 15px) 0;  /* reduced height */
+  overflow: hidden;
+  box-shadow: 0 -10px 30px rgba(255,0,0,.12);
+}
+.ticker-content {
+  display: inline-block; white-space: nowrap; padding-left: 100%;
+  font-weight: 900; letter-spacing: .14em;
+  font-size: clamp(18px,5.7vw,27px);  /* reduced 25% */
+  animation: ticker 65s linear infinite; /* slowed from 46s → 65s */
+  text-shadow: 0 0 10px rgba(255,0,0,.55);
+}
+.badge {
+  display: inline-block; margin-right: 1.1rem;
+  padding: .25rem .75rem; border-radius: .5rem;
+  background: #b70000; color: #fff;
+  font-size: 1.3em;  /* reduced 25% */
+  box-shadow: 0 0 14px rgba(255,0,0,.35);
+}
+@keyframes ticker { 
+  from { transform: translateX(0); } 
+  to   { transform: translateX(-100%); } 
+}
 
     /* Tap overlay (mobile: for enabling audio) */
     .tap-start{
