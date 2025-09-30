@@ -17,7 +17,13 @@
     html, body {
       height: 100%; margin: 0; color: var(--txt);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Arial, "Noto Sans";
-      background: radial-gradient(1100px 700px at 50% 50%, var(--bg1), var(--bg2) 70%);
+
+      /* Radial gradient + Umbrella logo watermark */
+      background: 
+        radial-gradient(1100px 700px at 50% 50%, var(--bg1), var(--bg2) 70%),
+        url('umbrella.png') center center / 300px 300px repeat;
+      background-blend-mode: multiply;
+      opacity: 0.95;
     }
 
     .wrap {
@@ -33,9 +39,9 @@
 
     body.alarm { animation: flash 700ms steps(2, jump-none) infinite; }
     @keyframes flash {
-      0% { background: radial-gradient(1100px 700px at 50% 50%, #2a0000, #000 70%); }
-      50% { background: radial-gradient(1100px 700px at 50% 50%, #8b0000, #000 60%); }
-      100% { background: radial-gradient(1100px 700px at 50% 50%, #2a0000, #000 70%); }
+      0% { background-color: #2a0000; }
+      50% { background-color: #8b0000; }
+      100% { background-color: #2a0000; }
     }
 
     .status {
@@ -101,7 +107,7 @@
       display: inline-block; white-space: nowrap; padding-left: 100%;
       font-weight: 900; letter-spacing: .12em;
       font-size: clamp(24px,7.6vw,36px);
-      animation: ticker 45s linear infinite; /* slowed from 28s → 45s */
+      animation: ticker 45s linear infinite;
     }
     @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-100%); } }
     .badge { display: inline-block; margin-right: 1.5rem; padding: .3rem 1rem; border-radius: .6rem; background: #b70000; color: #fff; font-size: 1.7em; }
