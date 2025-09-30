@@ -1,20 +1,11 @@
 <!doctype html>
-<!-- Autoplay siren loop -->
-<audio autoplay loop>
-  <source src="siren.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#8b0000" />
   <title>Zombie Outbreak Imminent</title>
-  <meta name="description" content="Full-screen zombie outbreak imminent alert with biohazard emblem, flashing background, and scrolling ticker." />
-
-  <!-- Fallback apple tags for nicer mobile theming -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Zombie outbreak imminent alert with biohazard emblem, flashing background, scrolling ticker, and siren sound." />
 
   <style>
     :root {
@@ -26,19 +17,14 @@
       --ticker-brd: #ff444466;
     }
 
-    /* Reset + mobile-friendly typographic base */
-    * { box-sizing: border-box; }
     html, body {
       height: 100%;
       margin: 0;
       color: var(--txt);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans";
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       background: radial-gradient(1100px 700px at 50% 50%, var(--bg1), var(--bg2) 70%);
     }
 
-    /* Layout */
     .wrap {
       min-height: 100%;
       display: grid;
@@ -49,7 +35,6 @@
       gap: clamp(12px, 2.5vw, 18px);
     }
 
-    /* Flashing "alarm" effect */
     body.alarm {
       animation: flash 700ms steps(2, jump-none) infinite;
     }
@@ -57,12 +42,6 @@
       0%   { background: radial-gradient(1100px 700px at 50% 50%, #2a0000, #000 70%); }
       50%  { background: radial-gradient(1100px 700px at 50% 50%, #8b0000, #000 60%); }
       100% { background: radial-gradient(1100px 700px at 50% 50%, #2a0000, #000 70%); }
-    }
-
-    /* Respect accessibility setting */
-    @media (prefers-reduced-motion: reduce) {
-      body.alarm { animation: none; }
-      .ticker-content { animation-duration: 60s; }
     }
 
     header {
@@ -90,9 +69,6 @@
       font-size: clamp(120px, 36vw, 420px);
       line-height: 1;
       filter: drop-shadow(0 0 18px rgba(255, 0, 0, 0.85)) drop-shadow(0 0 50px rgba(255, 0, 0, 0.35));
-      user-select: none;
-      -webkit-user-select: none;
-      will-change: filter;
     }
 
     .imminent {
@@ -105,7 +81,6 @@
       text-shadow: 0 0 12px var(--glow);
     }
 
-    /* Bottom ticker */
     .ticker {
       position: fixed;
       left: 0; right: 0; bottom: 0;
@@ -137,6 +112,24 @@
       color: #fff;
       font-size: 0.85em;
     }
+
+    /* Tap overlay */
+    .tap-start {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.85);
+      color: #fff;
+      font-size: clamp(18px, 6vw, 32px);
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      z-index: 9999;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body class="alarm">
@@ -146,13 +139,10 @@
       <h1 aria-level="1">Zombie Outbreak Imminent</h1>
     </header>
 
-    <!-- Biohazard emblem -->
     <div class="biohazard" aria-hidden="true" title="Biohazard">☣</div>
-
     <div class="imminent" aria-live="polite">Stand by for instructions</div>
   </div>
 
-  <!-- Scrolling ticker -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker-content">
       <span class="badge">IMMINENT</span>
@@ -163,5 +153,27 @@
       Do not approach infected — Use head protection —
     </div>
   </div>
+
+  <!-- Siren Audio (hidden) -->
+  <audio id="siren" loop>
+    <source src="siren.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Tap overlay -->
+  <div id="tapOverlay" class="tap-start">Tap to Start Alert</div>
+
+  <script>
+    const overlay = document.getElementById('tapOverlay');
+    const siren = document.getElementById('siren');
+
+    function startSiren() {
+      siren.play().catch(()=>{});
+      overlay.style.display = 'none';
+    }
+
+    overlay.addEventListener('click', startSiren);
+    overlay.addEventListener('touchstart', startSiren);
+  </script>
 </body>
 </html>
