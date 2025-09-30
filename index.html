@@ -23,16 +23,27 @@
 
     *{box-sizing:border-box}
     html,body{
-      height:100%;
-      margin:0;
-      color:var(--text);
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;
-      background:
-        /* Umbrella watermark tiles */
-        url('umbrella.png') center/320px 320px repeat,
-        radial-gradient(1200px 800px at 50% 45%, #2a0000 0%, #000 70%);
-      background-blend-mode: overlay, normal;
-    }
+  height:100%;
+  margin:0;
+  color:var(--text);
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;
+  background:
+    radial-gradient(1200px 800px at 50% 45%, #2a0000 0%, #000 70%);
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Faded Umbrella logo overlay */
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('umbrella.png') center center / 65% no-repeat;
+  opacity: 0.15; /* Adjust fade: 0.1 = very faint, 0.3 = stronger */
+  pointer-events: none; /* ensures it's not clickable */
+  z-index: 0;
+}
 
     /* Subtle red grid overlay for that Umbrella terminal feel */
     body::before{
