@@ -51,15 +51,24 @@
       position: fixed; left: 0; right: 0; bottom: 0;
       background: linear-gradient(180deg, var(--ticker-bg), #000);
       border-top: 1px solid var(--ticker-brd);
-      padding: clamp(6px, 2.2vw, 10px) 0; overflow: hidden; z-index: 10;
+      /* doubled ticker height */
+      padding: clamp(12px, 4.4vw, 20px) 0; 
+      overflow: hidden; z-index: 10;
     }
     .ticker-content {
       display: inline-block; white-space: nowrap; padding-left: 100%;
-      font-weight: 900; letter-spacing: .12em; font-size: clamp(12px,3.8vw,18px);
+      font-weight: 900; letter-spacing: .12em;
+      /* doubled font size */
+      font-size: clamp(24px,7.6vw,36px);
       animation: ticker 28s linear infinite;
     }
     @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-100%); } }
-    .badge { display: inline-block; margin-right: .75rem; padding: .15rem .5rem; border-radius: .4rem; background: #b70000; color: #fff; font-size: .85em; }
+    .badge { 
+      display: inline-block; margin-right: 1.5rem; 
+      /* doubled padding + font size */
+      padding: .3rem 1rem; border-radius: .6rem; 
+      background: #b70000; color: #fff; font-size: 1.7em;
+    }
 
     /* Tap overlay */
     .tap-start {
@@ -133,7 +142,6 @@
     }
 
     function startSiren() {
-      // Start siren after user gesture (mobile-safe)
       siren.play().then(() => {
         playing = true;
         overlay.style.display = 'none';
@@ -141,9 +149,7 @@
         toggleBtn.textContent = '■ Stop Alert';
         toggleBtn.setAttribute('aria-pressed', 'true');
         toggleBtn.setAttribute('aria-label', 'Stop alert');
-      }).catch(() => {
-        // If playback fails, keep overlay so user can try again
-      });
+      }).catch(() => {});
     }
 
     function toggleSiren() {
@@ -163,11 +169,8 @@
       }
     }
 
-    // Start on tap/click
     overlay.addEventListener('click', startSiren, { passive: true });
     overlay.addEventListener('touchstart', startSiren, { passive: true });
-
-    // Stop/Resume
     toggleBtn.addEventListener('click', toggleSiren, { passive: true });
   </script>
 </body>
