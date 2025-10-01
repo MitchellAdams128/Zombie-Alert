@@ -34,6 +34,31 @@
       background-blend-mode: overlay, normal;
     }
 
+    .emblem-wrap {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 4px;
+}
+
+.emblem-wrap .biohazard {
+  position: relative;
+  z-index: 1;
+}
+
+.umbrella-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1em;   /* matches biohazard font scaling */
+  height: 1em;  /* keeps it square */
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none; /* don’t block clicks */
+  filter: none; /* keep original colors of SVG */
+}
+
     /* Subtle red grid overlay for that Umbrella terminal feel */
     body::before{
       content:"";
@@ -228,7 +253,10 @@
     </div>
 
     <!-- Emblem -->
-    <div class="biohazard" aria-hidden="true" title="Biohazard">☣</div>
+<div class="emblem-wrap">
+  <div class="biohazard" aria-hidden="true" title="Biohazard">☣</div>
+  <img src="UmbrellaLogo.svg" alt="Umbrella Logo" class="umbrella-overlay" />
+</div>
 
     <!-- Subline Panel -->
     <div class="panel">
