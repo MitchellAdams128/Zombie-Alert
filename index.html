@@ -33,6 +33,28 @@
   position: relative;
   overflow-x: hidden;
 }
+    .emblem-wrap {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emblem-wrap .biohazard {
+  position: relative;
+  z-index: 1;
+}
+
+.overlay-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1em;   /* matches biohazard font-size scaling */
+  height: 1em;  /* ensures square aspect */
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none; /* so it doesn’t block interactions */
+}
 
 /* Faded Umbrella logo overlay */
 html::after {
@@ -238,8 +260,11 @@ html::after {
       <h1>Zombie Outbreak Imminent</h1>
     </div>
 
-    <!-- Emblem -->
-    <div class="biohazard" aria-hidden="true" title="Biohazard">☣</div>
+    <!-- Emblem with overlayed SVG -->
+<div class="emblem-wrap">
+  <div class="biohazard" aria-hidden="true" title="Biohazard">☣</div>
+  <img src="YourSVG.svg" alt="Overlay Symbol" class="overlay-svg" />
+</div>
 
     <!-- Subline Panel -->
     <div class="panel">
