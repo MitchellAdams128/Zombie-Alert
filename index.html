@@ -28,36 +28,11 @@
       color:var(--text);
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial;
       background:
-        /* Umbrella watermark tiles */
-        url('UmbrellaLogo.svg') center,
         radial-gradient(1200px 800px at 50% 45%, #2a0000 0%, #000 70%);
-      background-blend-mode: overlay, normal;
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
     }
-
-    .emblem-wrap {
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto 4px;
-}
-
-.emblem-wrap .biohazard {
-  position: relative;
-  z-index: 1;
-}
-
-.umbrella-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1em;   /* matches biohazard font scaling */
-  height: 1em;  /* keeps it square */
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  pointer-events: none; /* don’t block clicks */
-  filter: none; /* keep original colors of SVG */
-}
 
     /* Subtle red grid overlay for that Umbrella terminal feel */
     body::before{
@@ -99,17 +74,12 @@
 
     /* Umbrella header strip */
     .uc-strip{
-      display:flex; align-items:center; gap:10px;
+      display:flex; align-items:center; justify-content:center;
       padding:10px 14px;
       background: linear-gradient(180deg, #1a0000, #000);
       border:1px solid var(--ticker-brd);
       border-radius:12px;
       box-shadow: 0 0 30px rgba(255,0,0,.15), inset 0 0 0 1px rgba(255,255,255,.05);
-    }
-    .uc-logo{
-      width:28px; height:28px; flex:0 0 28px;
-      background:url('UmbrellaLogo.svg') center/contain no-repeat;
-      filter: drop-shadow(0 0 6px rgba(255,0,0,.6));
     }
     .uc-text{
       font-weight:900; letter-spacing:.18em; text-transform:uppercase; font-size: clamp(12px,3.4vw,14px);
@@ -130,32 +100,32 @@
       text-shadow: 0 0 16px var(--glow), 0 0 34px rgba(255,0,0,.35);
     }
 
-    /* Biohazard emblem: pulse + slow rotation */
     /* Biohazard emblem: pulse + slow rotation (blue) */
-.biohazard {
-  font-size: clamp(200px, 50vw, 560px);
-  line-height: 1;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 4px;
-  color: #00bfff; /* Blue symbol */
-  filter: drop-shadow(0 0 24px rgba(0,191,255,.95))
-          drop-shadow(0 0 64px rgba(0,191,255,.4));
-  user-select: none;
-  animation: pulse 2.4s ease-in-out infinite, spin 60s linear infinite;
-  will-change: transform, filter;
-}
-@keyframes pulse {
-  0%   { transform: scale(1) rotate(0deg);
-         filter: drop-shadow(0 0 18px rgba(0,191,255,.9)) drop-shadow(0 0 40px rgba(0,191,255,.35)); }
-  50%  { transform: scale(1.06) rotate(180deg);
-         filter: drop-shadow(0 0 30px rgba(0,191,255,1)) drop-shadow(0 0 70px rgba(0,191,255,.55)); }
-  100% { transform: scale(1) rotate(360deg);
-         filter: drop-shadow(0 0 18px rgba(0,191,255,.9)) drop-shadow(0 0 40px rgba(0,191,255,.35)); }
-}
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
+    .biohazard {
+      font-size: clamp(200px, 50vw, 560px);
+      line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 4px;
+      color: #00bfff; /* Blue symbol */
+      filter: drop-shadow(0 0 24px rgba(0,191,255,.95))
+              drop-shadow(0 0 64px rgba(0,191,255,.4));
+      user-select: none;
+      animation: pulse 2.4s ease-in-out infinite, spin 60s linear infinite;
+      will-change: transform, filter;
+    }
+    @keyframes pulse {
+      0%   { transform: scale(1) rotate(0deg);
+             filter: drop-shadow(0 0 18px rgba(0,191,255,.9)) drop-shadow(0 0 40px rgba(0,191,255,.35)); }
+      50%  { transform: scale(1.06) rotate(180deg);
+             filter: drop-shadow(0 0 30px rgba(0,191,255,1)) drop-shadow(0 0 70px rgba(0,191,255,.55)); }
+      100% { transform: scale(1) rotate(360deg);
+             filter: drop-shadow(0 0 18px rgba(0,191,255,.9)) drop-shadow(0 0 40px rgba(0,191,255,.35)); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
     @media (prefers-reduced-motion: reduce){
       .biohazard{ animation: none; }
       body.alarm{ animation: none; }
@@ -184,33 +154,33 @@
       color:#ffdbdb;
     }
 
-    /* Ticker (bigger, slower for drama) */
-.ticker {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 3;
-  background: linear-gradient(180deg, var(--ticker-bg), #000);
-  border-top: 1px solid var(--ticker-brd);
-  padding: clamp(9px, 3.3vw, 15px) 0;  /* reduced height */
-  overflow: hidden;
-  box-shadow: 0 -10px 30px rgba(255,0,0,.12);
-}
-.ticker-content {
-  display: inline-block; white-space: nowrap; padding-left: 100%;
-  font-weight: 900; letter-spacing: .14em;
-  font-size: clamp(18px,5.7vw,27px);  /* reduced 25% */
-  animation: ticker 55s linear infinite; /* slowed from 46s → 65s */
-  text-shadow: 0 0 10px rgba(255,0,0,.55);
-}
-.badge {
-  display: inline-block; margin-right: 1.1rem;
-  padding: .25rem .75rem; border-radius: .5rem;
-  background: #b70000; color: #fff;
-  font-size: 1.3em;  /* reduced 25% */
-  box-shadow: 0 0 14px rgba(255,0,0,.35);
-}
-@keyframes ticker { 
-  from { transform: translateX(0); } 
-  to   { transform: translateX(-100%); } 
-}
+    /* Ticker */
+    .ticker {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 3;
+      background: linear-gradient(180deg, var(--ticker-bg), #000);
+      border-top: 1px solid var(--ticker-brd);
+      padding: clamp(9px, 3.3vw, 15px) 0;
+      overflow: hidden;
+      box-shadow: 0 -10px 30px rgba(255,0,0,.12);
+    }
+    .ticker-content {
+      display: inline-block; white-space: nowrap; padding-left: 100%;
+      font-weight: 900; letter-spacing: .14em;
+      font-size: clamp(18px,5.7vw,27px);
+      animation: ticker 55s linear infinite;
+      text-shadow: 0 0 10px rgba(255,0,0,.55);
+    }
+    .badge {
+      display: inline-block; margin-right: 1.1rem;
+      padding: .25rem .75rem; border-radius: .5rem;
+      background: #b70000; color: #fff;
+      font-size: 1.3em;
+      box-shadow: 0 0 14px rgba(255,0,0,.35);
+    }
+    @keyframes ticker { 
+      from { transform: translateX(0); } 
+      to   { transform: translateX(-100%); } 
+    }
 
     /* Tap overlay (mobile: for enabling audio) */
     .tap-start{
@@ -242,7 +212,6 @@
   <div class="wrap" role="main">
     <!-- Umbrella strip -->
     <div class="uc-strip">
-      <div class="uc-logo" aria-hidden="true"></div>
       <div class="uc-text">Umbrella Corporation // Taekwondo Division</div>
     </div>
 
@@ -253,10 +222,7 @@
     </div>
 
     <!-- Emblem -->
-<div class="emblem-wrap">
-  <div class="biohazard" aria-hidden="true" title="Biohazard">☣</div>
-  <img src="UmbrellaLogo.svg" alt="Umbrella Logo" class="umbrella-overlay" />
-</div>
+    <div class="biohazard" aria-hidden="true" title="Biohazard">☣</div>
 
     <!-- Subline Panel -->
     <div class="panel">
